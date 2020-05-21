@@ -18,7 +18,7 @@ Optional field names are indicated by the `?` postfix.
 
 If authentication is required in order to access certain content, the user should be able to authenticate by issuing a `POST` request to the `/authenticate` endpoint with the following JSON body:
 
-```json
+```
 {
 	"username": <Email or Username: String>,
 	"password": <Password: String>
@@ -27,7 +27,7 @@ If authentication is required in order to access certain content, the user shoul
 
 Upon successful authentication the server should respond with a `200` status code and the following JSON body:
 
-```json
+```
 {
   "accessToken": {
     "expiresIn?": <Seconds: Number>,
@@ -42,7 +42,7 @@ Upon successful authentication the server should respond with a `200` status cod
 
 In case the user cannot be authenticated (Eg. the user has entered the wrong credentials) the server should respond with a status code `404` and the following JSON body:
 
-```json
+```
 {
   "error": {
     "code?": <Error code: Number>,
@@ -65,7 +65,7 @@ If the user is succesfully authenticated, but does not have access to the reques
 
 In order to refresh the access token, the client has to send a `POST` request with the following body:
 
-```json
+```
 {
   "refreshToken": <JWT Refresh token: String>
 }
@@ -73,7 +73,7 @@ In order to refresh the access token, the client has to send a `POST` request wi
 
 If the access token is successfully refreshed, the server should respond with:
 
-```json
+```
 {
   "accessToken": {
     "expiresIn?": <Seconds: Number>,
@@ -86,7 +86,7 @@ If the access token is successfully refreshed, the server should respond with:
 
 The server should respond with the following JSON body:
 
-```json
+```
 {
   "results": [
     {
@@ -112,7 +112,7 @@ The server should respond with the following JSON body:
 
 If the ID is of a movie or episode, the server should respond with the following JSON body:
 
-```json
+```
 {
   "type": "movie" | "episode",
   "id": <Unique ID>,
@@ -135,7 +135,7 @@ If the ID is of a movie or episode, the server should respond with the following
 
 If the ID instead belongs to a series the server should return:
 
-```json
+```
 {
   "type": "series",
   "id": <Unique ID>,
