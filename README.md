@@ -116,7 +116,7 @@ If the ID is of a movie or episode, the server should respond with the following
 {
   "type": "movie" | "episode",
   "id": <Unique ID>,
-  "imdb_id": <Unique ID>,
+  "imdb_id?": <Unique ID>,
   "title": <Movie or Episode title: String>,
   "poster": "https://cdn.example.net/poster.png",
   "description?": <Description: String>,
@@ -139,7 +139,7 @@ If the ID instead belongs to a series the server should return:
 {
   "type": "series",
   "id": <Unique ID>,
-  "imdb_id": <Unique ID>,
+  "imdb_id?": <Unique ID>,
   "title": <Series title: String>,
   "poster": "https://cdn.example.net/poster.png",
   "seasons": [
