@@ -97,7 +97,7 @@ The server should respond with the following JSON body:
       "poster": "https://cdn.example.net/poster.png",
     },
     {
-      "type": "movie" | "episode",
+      "type": "movie" | "series",
       "id": <Unique ID>,
       "imdb_id?": <Unique ID>,
       "title": <Movie or Series title: String>,
