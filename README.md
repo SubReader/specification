@@ -20,8 +20,8 @@ If authentication is required in order to access certain content, the user shoul
 
 ```
 {
-	"username": <Email or Username: String>,
-	"password": <Password: String>
+  "username": <Email or Username: String>,
+  "password": <Password: String>
 }
 ```
 
