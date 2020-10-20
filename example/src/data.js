@@ -76,7 +76,7 @@ const DB = {
       subtitles: [
         {
           language: "da",
-          url: "/static/JoJo_Rabit.vtt",
+          url: "/static/JoJo_Rabbit.vtt",
         },
       ],
     },
