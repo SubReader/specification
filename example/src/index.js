@@ -4,7 +4,7 @@ const { DB } = require("./data");
 const app = express();
 
 app.use(express.json());
-app.use("/static", express.static("../static"));
+app.use("/static", express.static("static"));
 
 const secret = process.env.SECRET || "secret";
 
@@ -101,23 +101,29 @@ app.get("/title/:id", async (req, res) => {
   const [_, token] = authorization.split(" ");
 
   try {
-    await jwt.verify(token, secret, {
+    const { sub } = await jwt.verify(token, secret, {
       audience: "accessToken",
     });
 
-    const { id } = req.params;
-    const title = DB.titles.find((title) => title.id == id);
-
-    if (!title) {
-      res.status(404);
-      return res.end("Title not found.");
+    const user = DB.users.find((user) => user.id == sub);
+    if (!user.entitlements.includes("paid")) {
+      res.status(403);
+      return res.end("User does not have access to this resource.");
     }
-
-    return res.json(title);
   } catch (error) {
     res.status(500);
     return res.end("Invalid token.");
   }
+
+  const { id } = req.params;
+  const title = DB.titles.find((title) => title.id == id);
+
+  if (!title) {
+    res.status(404);
+    return res.end("Title not found.");
+  }
+
+  return res.json(title);
 });
 
 app.get("/title/:id/fingerprint", async (req, res) => {
@@ -131,26 +137,31 @@ app.get("/title/:id/fingerprint", async (req, res) => {
   const [_, token] = authorization.split(" ");
 
   try {
-    await jwt.verify(token, secret, {
+    const { sub } = await jwt.verify(token, secret, {
       audience: "accessToken",
     });
 
-    const { id } = req.params;
-    const fingerprint = DB.fingerprints.find(
-      (fingerprint) => fingerprint.id == id
-    );
-
-    if (!fingerprint) {
-      res.status(404);
-      return res.end("Title not found.");
+    const user = DB.users.find((user) => user.id == sub);
+    if (!user.entitlements.includes("paid")) {
+      res.status(403);
+      return res.end("User does not have access to this ressource.");
     }
-
-    return res.json(fingerprint);
   } catch (error) {
-    console.error(error);
     res.status(500);
     return res.end("Invalid token.");
   }
+
+  const { id } = req.params;
+  const fingerprint = DB.fingerprints.find(
+    (fingerprint) => fingerprint.id == id
+  );
+
+  if (!fingerprint) {
+    res.status(404);
+    return res.end("Title not found.");
+  }
+
+  return res.json(fingerprint);
 });
 
 app.get("/title/:id/subtitles", async (req, res) => {
@@ -164,24 +175,29 @@ app.get("/title/:id/subtitles", async (req, res) => {
   const [_, token] = authorization.split(" ");
 
   try {
-    await jwt.verify(token, secret, {
+    const { sub } = await jwt.verify(token, secret, {
       audience: "accessToken",
     });
-
-    const { id } = req.params;
-    const subtitle = DB.subtitles.find((subtitle) => subtitle.id == id);
-
-    if (!subtitle) {
-      res.status(404);
-      return res.end("Subtitles not found.");
+    const user = DB.users.find((user) => user.id == sub);
+    if (!user.entitlements.includes("paid")) {
+      res.status(403);
+      return res.end("User does not have access to this ressource.");
     }
-
-    return res.json(subtitle);
   } catch (error) {
     console.error(error);
     res.status(500);
     return res.end("Invalid token.");
   }
+
+  const { id } = req.params;
+  const subtitle = DB.subtitles.find((subtitle) => subtitle.id == id);
+
+  if (!subtitle) {
+    res.status(404);
+    return res.end("Subtitles not found.");
+  }
+
+  return res.json(subtitle);
 });
 
 const port = process.env.PORT || 3000;

@@ -45,19 +45,19 @@ const DB = {
     {
       id: "1",
       fingerprint: fs.readFileSync(
-        "../fingerprints/Bad_Boys_for_Life.txt",
+        "./fingerprints/Bad_Boys_for_Life.txt",
         "utf-8"
       ),
       samplerate: 48000,
     },
     {
       id: "2",
-      fingerprint: fs.readFileSync("../fingerprints/JoJo_Rabbit.txt", "utf-8"),
+      fingerprint: fs.readFileSync("./fingerprints/JoJo_Rabbit.txt", "utf-8"),
       samplerate: 48000,
     },
     {
       id: "3",
-      fingerprint: fs.readFileSync("../fingerprints/Shaft.txt", "utf-8"),
+      fingerprint: fs.readFileSync("./fingerprints/Shaft.txt", "utf-8"),
       samplerate: 48000,
     },
   ],
