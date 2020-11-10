@@ -1,3 +1,4 @@
 node_modules
 fingerprints
 static
+__pycache__
